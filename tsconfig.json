@@ -1,48 +1,119 @@
+// // // // {
+// // // //   "compilerOptions": {
+// // // //     "target": "ES2020",
+// // // //     "module": "ESNext",
+// // // //     "moduleResolution": "Bundler",
+// // // //     "strict": true,
+// // // //     "esModuleInterop": true,
+// // // //     "skipLibCheck": true,
+// // // //     "forceConsistentCasingInFileNames": true,
+// // // //     "outDir": "./dist"
+// // // //   },
+// // // //   "include": ["src/**/*"],
+// // // //   "exclude": ["node_modules"]
+// // // // }
+
+// // // // {
+// // // //     "compilerOptions": {
+// // // //       "target": "ES2020",
+// // // //       "module": "ESNext",
+// // // //       "moduleResolution": "node",
+// // // //       "esModuleInterop": true,
+// // // //       "strict": true,
+// // // //       "skipLibCheck": true,
+// // // //       "forceConsistentCasingInFileNames": true,
+// // // //       "outDir": "./dist"
+// // // //     },
+// // // //     "include": ["src/**/*"],
+// // // //     "exclude": ["node_modules"]
+// // // // //   }
+
+// // // // {
+// // // //   "compilerOptions": {
+// // // //     "target": "ES2020",
+// // // //     "module": "ESNext",
+// // // //     "moduleResolution": "node",
+// // // //     "esModuleInterop": true,
+// // // //     "strict": true,
+// // // //     "skipLibCheck": true,
+// // // //     "forceConsistentCasingInFileNames": true,
+// // // //     "outDir": "./dist"
+// // // //   },
+// // // //   "include": ["src/**/*"],
+// // // //   "exclude": ["node_modules"]
+// // // // }
+
+
+// // // {
+// // //   "compilerOptions": {
+// // //     "target": "ES2020",
+// // //     "module": "CommonJS",
+// // //     "moduleResolution": "node",
+// // //     "strict": true,
+// // //     "esModuleInterop": true,
+// // //     "skipLibCheck": true,
+// // //     "forceConsistentCasingInFileNames": true,
+// // //     "outDir": "server/dist",
+// // //     "rootDir": "server",
+// // //     "baseUrl": ".",
+// // //     "paths": {
+// // //       "shared/*": ["shared/*"]
+// // //     },
+// // //     "lib": ["ES2020"], // Ensure no DOM types
+// // //     "types": ["node"] // Include Node.js types only
+// // //   },
+// // //   "include": ["server/**/*", "server/models", "server/routers", "server/context.ts", "server/db.ts", "server/index.ts", "server/trpc.ts", "server/types.ts"],
+// // //   "exclude": ["node_modules", "server/dist"]
+// // // }
+
+// // {
+// //   "compilerOptions": {
+// //     "target": "ES2020",
+// //     "module": "CommonJS",
+// //     "moduleResolution": "node",
+// //     "strict": true,
+// //     "esModuleInterop": true,
+// //     "skipLibCheck": true,
+// //     "forceConsistentCasingInFileNames": true,
+// //     "outDir": "server/dist",
+// //     "rootDir": "server",
+// //     "baseUrl": ".",
+// //     "paths": {
+// //       "shared/*": ["shared/*"]
+// //     },
+// //     "lib": ["ES2020"],
+// //     "types": ["node"]
+// //   },
+// //   "include": ["server/**/*", "shared/**/*"], // Include both server and shared
+// //   "exclude": ["node_modules", "server/dist", "shared/dist"]
+// // }
+
+
 // {
 //   "compilerOptions": {
 //     "target": "ES2020",
-//     "module": "ESNext",
-//     "moduleResolution": "Bundler",
-//     "strict": true,
-//     "esModuleInterop": true,
-//     "skipLibCheck": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "outDir": "./dist"
-//   },
-//   "include": ["src/**/*"],
-//   "exclude": ["node_modules"]
-// }
-
-// {
-//     "compilerOptions": {
-//       "target": "ES2020",
-//       "module": "ESNext",
-//       "moduleResolution": "node",
-//       "esModuleInterop": true,
-//       "strict": true,
-//       "skipLibCheck": true,
-//       "forceConsistentCasingInFileNames": true,
-//       "outDir": "./dist"
-//     },
-//     "include": ["src/**/*"],
-//     "exclude": ["node_modules"]
-// //   }
-
-// {
-//   "compilerOptions": {
-//     "target": "ES2020",
-//     "module": "ESNext",
+//     "module": "CommonJS",
 //     "moduleResolution": "node",
-//     "esModuleInterop": true,
 //     "strict": true,
+//     "esModuleInterop": true,
 //     "skipLibCheck": true,
 //     "forceConsistentCasingInFileNames": true,
-//     "outDir": "./dist"
+//     "outDir": "server/dist",
+//     "rootDir": "server",
+//     "baseUrl": ".",
+//     "paths": {
+//       "shared/*": ["shared/*"]
+//     },
+//     "lib": ["ES2020"],
+//     "types": ["node"],
+//     "typeRoots": [
+//       "./node_modules/@types",
+//       "./shared/dist" // Include compiled type definitions from shared/dist
+//     ]
 //   },
-//   "include": ["src/**/*"],
-//   "exclude": ["node_modules"]
+//   "include": ["server/**/*"],
+//   "exclude": ["node_modules", "server/dist", "shared"]
 // }
-
 
 {
   "compilerOptions": {
@@ -54,13 +125,18 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "server/dist",
+    "rootDir": "server",
     "baseUrl": ".",
     "paths": {
-      "shared/*": ["shared/*"]
+      "shared/*": ["shared/dist/*"]
     },
-    "lib": ["ES2020"], // Ensure no DOM types
-    "types": ["node"] // Include Node.js types only
+    "lib": ["ES2020"],
+    "types": ["node"],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./shared/dist"
+    ]
   },
-  "include": ["server/**/*", "server/models", "server/routers", "server/context.ts", "server/db.ts", "server/index.ts", "server/trpc.ts", "server/types.ts"],
-  "exclude": ["node_modules", "server/dist"]
+  "include": ["server/**/*"],
+  "exclude": ["node_modules", "server/dist", "shared"]
 }

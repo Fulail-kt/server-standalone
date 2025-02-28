@@ -73,7 +73,7 @@ exports.trpc = exports.privateProcedure = exports.publicProcedure = exports.rout
 // // Export the tRPC instance
 // export const trpc = t;
 const server_1 = require("@trpc/server");
-const trpc_1 = require("../shared/trpc"); // Update path
+const trpc_1 = require("shared/trpc"); // Update path
 Object.defineProperty(exports, "router", { enumerable: true, get: function () { return trpc_1.router; } });
 Object.defineProperty(exports, "publicProcedure", { enumerable: true, get: function () { return trpc_1.publicProcedure; } });
 const t = server_1.initTRPC.context().create();

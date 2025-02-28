@@ -100,7 +100,8 @@
 
 import { initTRPC, TRPCError } from '@trpc/server';
 import { Context } from './context'; // Update path
-import { router, publicProcedure } from '../shared/trpc'; // Update path
+import { router, publicProcedure } from 'shared/trpc'; // Update path
+
 
 const t = initTRPC.context<Context>().create();
 

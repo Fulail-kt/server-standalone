@@ -49,11 +49,11 @@ exports.userRouter = (0, trpc_1.router)({
         const items = hasMore ? donors.slice(0, limit) : donors;
         return {
             donors: items.map((donor) => ({
-                id: donor._id.toString(),
+                id: donor._id.toString ? donor._id.toString() : donor._id,
                 name: donor.name,
                 image: donor.image || '',
                 age: donor.age || 0,
-                bloodGroup: donor.blood, // Safe assertion since $ne: null ensures it's not null
+                bloodGroup: donor.blood,
                 mobile: donor.phone,
             })),
             nextPage: hasMore ? (cursor ? cursor + 1 : 2) : undefined,

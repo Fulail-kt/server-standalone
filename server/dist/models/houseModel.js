@@ -1,4 +1,5 @@
 "use strict";
+// import mongoose, { Document, Schema } from 'mongoose';
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -33,6 +34,26 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+// export interface IHouse extends Document {
+//   houseName: string;
+//   buildingNo: string;
+//   members: mongoose.Types.ObjectId[]; 
+//   totalMembers: number;
+// }
+// const houseSchema = new Schema<IHouse>(
+//   {
+//     houseName: { type: String, required: true },
+//     buildingNo: { type: String, required: true },
+//     members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], 
+//     totalMembers: { type: Number, default: 0 },
+//   },
+//   { timestamps: true }
+// );
+// houseSchema.pre('save', function (next) {
+//   this.totalMembers = this.members.length;
+//   next();
+// });
+// export default mongoose.model<IHouse>('House', houseSchema);
 const mongoose_1 = __importStar(require("mongoose"));
 const houseSchema = new mongoose_1.Schema({
     houseName: { type: String, required: true },
@@ -40,6 +61,7 @@ const houseSchema = new mongoose_1.Schema({
     members: [{ type: mongoose_1.default.Schema.Types.ObjectId, ref: 'User' }],
     totalMembers: { type: Number, default: 0 },
 }, { timestamps: true });
+// Fix the TypeScript errors by adding proper type annotations
 houseSchema.pre('save', function (next) {
     this.totalMembers = this.members.length;
     next();
