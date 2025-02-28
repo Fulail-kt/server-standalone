@@ -1,0 +1,34 @@
+// {
+//     "compilerOptions": {
+//       "outDir": "./dist",
+//       "rootDir": "../../",
+//       "module": "commonjs",
+//       "target": "es6",
+//       "lib": ["es6"],
+//       "sourceMap": true,
+//       "esModuleInterop": true,
+//       "strict": true,
+//       "baseUrl": ".",
+//       "paths": {"@server/*":["../../server/*"]}
+//     }
+//   }
+
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": ".",
+    "module": "CommonJS",
+    "target": "ES2020",
+    "lib": ["ES2020"], // Ensure no DOM types are included
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["node"] // Include Node.js types only
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

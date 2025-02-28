@@ -1,0 +1,13 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "main": "dist/trpc.js",
+  "types": "dist/trpc.d.ts",
+  "dependencies": {
+    "@trpc/server": "^10.45.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

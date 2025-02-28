@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "packageManager": "yarn@1.22.22",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server/dist/index.js",
+    "dev": "ts-node-dev --respawn --transpile-only server/index.ts",
+    "build": "yarn build:shared && yarn build:server",
+    "build:shared": "npx tsc --project shared/tsconfig.json",
+    "build:server": "npx tsc",
+    "lint": "eslint server --ext .ts,.js",
+    "lint:fix": "eslint server --ext .ts,.js --fix"
+  },
+  "dependencies": {
+    "@trpc/server": "^10.45.2",
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.9",
+    "add": "^2.0.6",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.25.0",
+    "yarn": "^1.22.22"
+  }
+}
