@@ -1,7 +1,7 @@
 // server/routers/user.ts
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
-import mongoose, { FilterQuery } from 'mongoose';
+import mongoose, { FilterQuery, Types } from 'mongoose';
 import { privateProcedure, router } from '../trpc';
 import bcrypt from 'bcryptjs'
 import { User } from '../models/userModel';
@@ -9,7 +9,7 @@ import { createUserSchema, updateUserSchema } from '../types';
 import houseModel from '../models/houseModel';
 
 interface UserDoc {
-  _id: string;
+  _id: mongoose.Types.ObjectId | string;  // Allow both string and ObjectId
   name: string;
   image?: string;
   age?: number;
@@ -61,13 +61,14 @@ export const userRouter = router({
       const hasMore = donors.length > limit;
       const items = hasMore ? donors.slice(0, limit) : donors;
   
+      
       return {
         donors: items.map((donor) => ({
-          id: donor._id.toString(),
+          id: (donor._id as any).toString ? (donor._id as any).toString() : donor._id,
           name: donor.name,
           image: donor.image || '',
           age: donor.age || 0,
-          bloodGroup: donor.blood as BloodGroup, // Safe assertion since $ne: null ensures it's not null
+          bloodGroup: donor.blood as BloodGroup,
           mobile: donor.phone,
         })),
         nextPage: hasMore ? (cursor ? cursor + 1 : 2) : undefined,
