@@ -20,4 +20,5 @@ const annualFeeSchema = new Schema<IAnnualFee>(
   { timestamps: true }
 );
 
-export const AnnualFee = mongoose.model<IAnnualFee>('AnnualFee', annualFeeSchema);
+const AnnualFeeModel = mongoose.model<IAnnualFee>('AnnualFee', annualFeeSchema);
+export default AnnualFeeModel

@@ -33,7 +33,7 @@ const signup = publicProcedure
     await user.save();
 
     // Generate a JWT
-    const token = jwt.sign({onBoard:user.onboarding??false, userId: user._id,role:user.role??'user',access:user.access??[] }, JWT_SECRET, {
+    const token = jwt.sign({onBoard:user.onboarding??false, userId: user._id,role:user.role??'user',access:user.access??[],isSAdmin:user.isSAdmin??false }, JWT_SECRET, {
       expiresIn: '7d',
     });
 
@@ -62,7 +62,7 @@ const signin = publicProcedure
     }
 
     // Generate a JWT
-    const token = jwt.sign({onBoard:user.onboarding??false, userId: user._id,role:user.role??'user',access:user.access??[] }, JWT_SECRET, {
+    const token = jwt.sign({onBoard:user.onboarding??false, userId: user._id,role:user.role??'user',isSAdmin:user.isSAdmin??false,access:user.access??[] }, JWT_SECRET, {
       expiresIn: '7d',
     });
 

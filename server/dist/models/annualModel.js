@@ -33,7 +33,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AnnualFee = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const annualFeeSchema = new mongoose_1.Schema({
     houseId: { type: mongoose_1.default.Schema.Types.ObjectId, ref: 'House', required: true },
@@ -43,4 +42,5 @@ const annualFeeSchema = new mongoose_1.Schema({
     feeStatus: { type: String, enum: ['paid', 'unpaid'], default: 'unpaid' },
     paidDate: { type: Date },
 }, { timestamps: true });
-exports.AnnualFee = mongoose_1.default.model('AnnualFee', annualFeeSchema);
+const AnnualFeeModel = mongoose_1.default.model('AnnualFee', annualFeeSchema);
+exports.default = AnnualFeeModel;

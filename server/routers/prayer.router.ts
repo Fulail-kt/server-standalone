@@ -2,7 +2,7 @@
 import { z } from 'zod';
 import { privateProcedure, publicProcedure, router } from '../trpc';
 import { TRPCError } from '@trpc/server';
-import { Adhan } from '../models/prayerModel';
+import AdhanModel from '../models/prayerModel';
 
 const adhanTimeSchema = z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, 'Time must be in HH:MM format');
 
@@ -25,7 +25,7 @@ export const adhanRouter = router({
     //     });
     //   }
 
-      const existingAdhan = await Adhan.findOne();
+      const existingAdhan = await AdhanModel.findOne();
       if (existingAdhan) {
         throw new TRPCError({
           code: 'CONFLICT',
@@ -33,7 +33,7 @@ export const adhanRouter = router({
         });
       }
 
-      const adhan = new Adhan(input);
+      const adhan = new AdhanModel(input);
       await adhan.save();
       return { adhan, message: 'Adhan times created successfully', success: true };
     }),
@@ -56,7 +56,7 @@ export const adhanRouter = router({
     //     });
     //   }
 
-      const adhan = await Adhan.findOne();
+      const adhan = await AdhanModel.findOne();
       if (!adhan) {
         throw new TRPCError({
           code: 'NOT_FOUND',
@@ -72,12 +72,12 @@ export const adhanRouter = router({
         isha: input.isha || adhan.isha,
       };
 
-      const updatedAdhan = await Adhan.findOneAndUpdate({}, updatedData, { new: true });
+      const updatedAdhan = await AdhanModel.findOneAndUpdate({}, updatedData, { new: true });
       return { updatedAdhan, message: 'Adhan times updated successfully', success: true };
     }),
 
   getAdhan: publicProcedure.query(async () => {
-    const adhan = await Adhan.findOne();
+    const adhan = await AdhanModel.findOne();
     return adhan || null;
   }),
 });

@@ -193,8 +193,8 @@ exports.committeeRouter = (0, trpc_1.router)({
         houseId: zod_1.z.string(),
         userId: zod_1.z.string(),
         position: zod_1.z.enum(['President', 'Secretary', 'Treasurer', 'Member']),
-        role: zod_1.z.enum(['USER', 'ADMIN']),
-        access: zod_1.z.array(zod_1.z.enum(['food', 'event', 'committee'])).optional(),
+        role: zod_1.z.enum(['user', 'admin']),
+        access: zod_1.z.array(zod_1.z.enum(['food', 'event', 'committee', 'houses', 'annual'])).optional(),
         date: zod_1.z.string(),
     }))
         .mutation(async ({ input }) => {
@@ -205,7 +205,7 @@ exports.committeeRouter = (0, trpc_1.router)({
         }
         const user = await userModel_1.User.findByIdAndUpdate(input.userId, {
             role: input.role,
-            access: input.role === 'ADMIN' ? input.access : [],
+            access: input.role === 'admin' ? input.access : [],
         }, { new: true });
         if (!user)
             throw new Error('User not found');
@@ -221,8 +221,8 @@ exports.committeeRouter = (0, trpc_1.router)({
         .input(zod_1.z.object({
         id: zod_1.z.string(),
         position: zod_1.z.enum(['President', 'Secretary', 'Treasurer', 'Member']),
-        role: zod_1.z.enum(['USER', 'ADMIN']),
-        access: zod_1.z.array(zod_1.z.enum(['food', 'event', 'committee'])).optional(),
+        role: zod_1.z.enum(['user', 'admin']),
+        access: zod_1.z.array(zod_1.z.enum(['food', 'event', 'committee', 'houses', 'annual'])).optional(),
     }))
         .mutation(async ({ input }) => {
         const committee = await committeeModel_1.default.findById(input.id);
@@ -230,7 +230,7 @@ exports.committeeRouter = (0, trpc_1.router)({
             throw new Error('Committee member not found');
         await userModel_1.User.findByIdAndUpdate(committee.userId, {
             role: input.role,
-            access: input.role === 'ADMIN' ? input.access : [],
+            access: input.role === 'admin' ? input.access : [],
         });
         return committeeModel_1.default.findByIdAndUpdate(input.id, { position: input.position }, { new: true });
     }),
@@ -241,7 +241,7 @@ exports.committeeRouter = (0, trpc_1.router)({
         if (!committee)
             throw new Error('Committee member not found');
         await userModel_1.User.findByIdAndUpdate(committee.userId, {
-            role: 'USER',
+            role: 'user',
             access: [],
         });
         await committeeModel_1.default.findByIdAndDelete(input.id);

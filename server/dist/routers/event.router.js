@@ -2,6 +2,9 @@
 // import { z } from 'zod';
 // import { privateProcedure, router } from '../trpc';
 // import { Event } from '../models/eventModel';
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.eventRouter = void 0;
 // export const eventRouter = router({
@@ -51,10 +54,10 @@ exports.eventRouter = void 0;
 // });
 const zod_1 = require("zod");
 const trpc_1 = require("../trpc");
-const eventModel_1 = require("../models/eventModel");
+const eventModel_1 = __importDefault(require("../models/eventModel"));
 exports.eventRouter = (0, trpc_1.router)({
     getAll: trpc_1.privateProcedure.query(async () => {
-        const events = await eventModel_1.Event.find().lean();
+        const events = await eventModel_1.default.find().lean();
         return events.map((event) => ({
             id: event._id.toString(),
             name: event.name,
@@ -71,7 +74,7 @@ exports.eventRouter = (0, trpc_1.router)({
         description: zod_1.z.string().min(1, 'Description is required'),
     }))
         .mutation(async ({ input }) => {
-        const event = new eventModel_1.Event(input);
+        const event = new eventModel_1.default(input);
         await event.save();
         return { id: event._id.toString(), ...input };
     }),
@@ -85,7 +88,7 @@ exports.eventRouter = (0, trpc_1.router)({
     }))
         .mutation(async ({ input }) => {
         const { id, ...updateData } = input;
-        const event = await eventModel_1.Event.findByIdAndUpdate(id, updateData, { new: true }).lean();
+        const event = await eventModel_1.default.findByIdAndUpdate(id, updateData, { new: true }).lean();
         if (!event)
             throw new Error('Event not found');
         return { id: event._id.toString(), ...updateData };
@@ -93,7 +96,7 @@ exports.eventRouter = (0, trpc_1.router)({
     delete: trpc_1.privateProcedure
         .input(zod_1.z.object({ id: zod_1.z.string() }))
         .mutation(async ({ input }) => {
-        const event = await eventModel_1.Event.findByIdAndDelete(input.id);
+        const event = await eventModel_1.default.findByIdAndDelete(input.id);
         if (!event)
             throw new Error('Event not found');
         return { success: true };

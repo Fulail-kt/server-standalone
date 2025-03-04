@@ -20,4 +20,6 @@ const adhanSchema = new Schema<IAdhan>(
   { timestamps: true }
 );
 
-export const Adhan = mongoose.model<IAdhan>('Adhan', adhanSchema);
+ const AdhanModel = mongoose.model<IAdhan>('Adhan', adhanSchema);
+
+ export default AdhanModel

@@ -30,7 +30,7 @@ const signup = trpc_1.publicProcedure
     const user = new userModel_1.User({ phone, password: hashPassword, name });
     await user.save();
     // Generate a JWT
-    const token = jsonwebtoken_1.default.sign({ onBoard: user.onboarding ?? false, userId: user._id, role: user.role ?? 'user', access: user.access ?? [] }, JWT_SECRET, {
+    const token = jsonwebtoken_1.default.sign({ onBoard: user.onboarding ?? false, userId: user._id, role: user.role ?? 'user', access: user.access ?? [], isSAdmin: user.isSAdmin ?? false }, JWT_SECRET, {
         expiresIn: '7d',
     });
     return { token, message: 'successfully account created', success: true };
@@ -53,7 +53,7 @@ const signin = trpc_1.publicProcedure
         throw new Error('Invalid phone number or password');
     }
     // Generate a JWT
-    const token = jsonwebtoken_1.default.sign({ onBoard: user.onboarding ?? false, userId: user._id, role: user.role ?? 'user', access: user.access ?? [] }, JWT_SECRET, {
+    const token = jsonwebtoken_1.default.sign({ onBoard: user.onboarding ?? false, userId: user._id, role: user.role ?? 'user', isSAdmin: user.isSAdmin ?? false, access: user.access ?? [] }, JWT_SECRET, {
         expiresIn: '7d',
     });
     return { message: 'successfully logged in ', success: true, token };

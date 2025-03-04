@@ -128,7 +128,8 @@
     "rootDir": "server",
     "baseUrl": ".",
     "paths": {
-      "shared/*": ["shared/dist/*"]
+      "shared/*": ["shared/dist/*"],
+      "@models/*":["server/models/*"]
     },
     "lib": ["ES2020"],
     "types": ["node"],

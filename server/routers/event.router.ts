@@ -53,7 +53,7 @@
 
 import { z } from 'zod';
 import { privateProcedure, router } from '../trpc';
-import { Event } from '../models/eventModel';
+import EventModel from '../models/eventModel';
 
 // Define the shape of your Event document
 interface EventDocument {
@@ -66,7 +66,7 @@ interface EventDocument {
 
 export const eventRouter = router({
   getAll: privateProcedure.query(async () => {
-    const events = await Event.find().lean();
+    const events = await EventModel.find().lean();
     return events.map((event: EventDocument) => ({
       id: event._id.toString(),
       name: event.name,
@@ -84,7 +84,7 @@ export const eventRouter = router({
       description: z.string().min(1, 'Description is required'),
     }))
     .mutation(async ({ input }) => {
-      const event = new Event(input);
+      const event = new EventModel(input);
       await event.save();
       return { id: event._id.toString(), ...input };
     }),
@@ -99,7 +99,7 @@ export const eventRouter = router({
     }))
     .mutation(async ({ input }) => {
       const { id, ...updateData } = input;
-      const event = await Event.findByIdAndUpdate(id, updateData, { new: true }).lean();
+      const event = await EventModel.findByIdAndUpdate(id, updateData, { new: true }).lean();
       if (!event) throw new Error('Event not found');
       return { id: event._id.toString(), ...updateData };
     }),
@@ -107,7 +107,7 @@ export const eventRouter = router({
   delete: privateProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input }) => {
-      const event = await Event.findByIdAndDelete(input.id);
+      const event = await EventModel.findByIdAndDelete(input.id);
       if (!event) throw new Error('Event not found');
       return { success: true };
     }),

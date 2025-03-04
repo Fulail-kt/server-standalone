@@ -33,7 +33,6 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Adhan = void 0;
 // server/models/adhanModel.ts
 const mongoose_1 = __importStar(require("mongoose"));
 const adhanSchema = new mongoose_1.Schema({
@@ -43,4 +42,5 @@ const adhanSchema = new mongoose_1.Schema({
     maghrib: { type: String, required: true, match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/ },
     isha: { type: String, required: true, match: /^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/ },
 }, { timestamps: true });
-exports.Adhan = mongoose_1.default.model('Adhan', adhanSchema);
+const AdhanModel = mongoose_1.default.model('Adhan', adhanSchema);
+exports.default = AdhanModel;

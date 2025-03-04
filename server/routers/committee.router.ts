@@ -232,8 +232,8 @@ export const committeeRouter = router({
       houseId: z.string(),
       userId: z.string(),
       position: z.enum(['President', 'Secretary', 'Treasurer', 'Member']),
-      role: z.enum(['USER', 'ADMIN']),
-      access: z.array(z.enum(['food', 'event', 'committee'])).optional(),
+      role: z.enum(['user', 'admin']),
+      access: z.array(z.enum(['food', 'event', 'committee','houses','annual'])).optional(),
       date: z.string(),
     }))
     .mutation(async ({ input }) => {
@@ -245,7 +245,7 @@ export const committeeRouter = router({
 
       const user = await User.findByIdAndUpdate(input.userId, {
         role: input.role,
-        access: input.role === 'ADMIN' ? input.access : [],
+        access: input.role === 'admin' ? input.access : [],
       }, { new: true });
 
       if (!user) throw new Error('User not found');
@@ -263,8 +263,8 @@ export const committeeRouter = router({
     .input(z.object({
       id: z.string(),
       position: z.enum(['President', 'Secretary', 'Treasurer', 'Member']),
-      role: z.enum(['USER', 'ADMIN']),
-      access: z.array(z.enum(['food', 'event', 'committee'])).optional(),
+      role: z.enum(['user', 'admin']),
+      access: z.array(z.enum(['food', 'event', 'committee','houses','annual'])).optional(),
     }))
     .mutation(async ({ input }) => {
       const committee = await committeeModel.findById(input.id);
@@ -272,7 +272,7 @@ export const committeeRouter = router({
 
       await User.findByIdAndUpdate(committee.userId, {
         role: input.role,
-        access: input.role === 'ADMIN' ? input.access : [],
+        access: input.role === 'admin' ? input.access : [],
       });
 
       return committeeModel.findByIdAndUpdate(input.id, { position: input.position }, { new: true });
@@ -285,7 +285,7 @@ export const committeeRouter = router({
       if (!committee) throw new Error('Committee member not found');
 
       await User.findByIdAndUpdate(committee.userId, {
-        role: 'USER',
+        role: 'user',
         access: [],
       });
       await committeeModel.findByIdAndDelete(input.id);
