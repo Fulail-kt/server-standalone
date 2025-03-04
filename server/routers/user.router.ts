@@ -14,10 +14,16 @@ import { v2 as cloudinary } from 'cloudinary';
 
 
 /// cloudinary
+// cloudinary.config({
+//   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+//   api_key: process.env.CLOUDINARY_API_KEY,
+//   api_secret: process.env.CLOUDINARY_API_SECRET,
+// });
+
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: 'dp19pgnnl',
+  api_key: '458556469471787',
+  api_secret: 'XruoucHbeb4XNtuPB-aXE5H8EX0',
 });
 
 
