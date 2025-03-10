@@ -2,7 +2,7 @@
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import mongoose, { FilterQuery, Types } from 'mongoose';
-import { privateProcedure, router } from '../trpc';
+import { privateProcedure, publicProcedure, router } from '../trpc';
 import bcrypt from 'bcryptjs'
 import { User } from '../models/userModel';
 import { createUserSchema, updateUserSchema } from '../types';
@@ -49,7 +49,7 @@ interface ExpoPushResponse {
 // Update schema (excluding phone and password)
 type BloodGroup = 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-' | 'All';
 export const userRouter = router({
-  getBloodDonors: privateProcedure
+  getBloodDonors: publicProcedure
     .input(
       z.object({
         limit: z.number().min(1).max(100).default(10),
@@ -315,9 +315,9 @@ export const userRouter = router({
         });
       }
 
-      // Assign house ID to user (convert ObjectId to string)
-      data.houseName = (house._id as mongoose.Types.ObjectId).toString();
-      data.buildingNo = (house._id as mongoose.Types.ObjectId).toString();
+      // // Assign house ID to user (convert ObjectId to string)
+      // data.houseName = (house._id as mongoose.Types.ObjectId).toString();
+      // data.buildingNo = (house._id as mongoose.Types.ObjectId).toString();
 
 
       // Hash the password
@@ -328,6 +328,7 @@ export const userRouter = router({
         phone,
         name,
         password: hashPassword,
+        onboarding:true,
         ...otherDetails,
       });
 

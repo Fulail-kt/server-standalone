@@ -30,6 +30,8 @@ export interface IUser extends Document {
   image?: string;
   isSAdmin?:boolean;
   createdBy?:mongoose.Types.ObjectId;
+  otp:number|null;
+  otpExpires:Date|null;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
@@ -76,6 +78,16 @@ const userSchema = new mongoose.Schema({
   baseFee:{type:Number,required:false},
   pushToken: { type: String, default: null },
   image: String,
+  otp: {
+    type: Number,
+    default: null,
+    select: false 
+  },
+  otpExpires: {
+    type: Date,
+    default: null,
+    select: false 
+  },
   isSAdmin:{type:Boolean,default:false,required:false},
   createdBy:{type:mongoose.Types.ObjectId},
   access: {

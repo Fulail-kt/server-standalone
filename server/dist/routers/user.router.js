@@ -29,7 +29,7 @@ cloudinary_1.v2.config({
     api_secret: 'XruoucHbeb4XNtuPB-aXE5H8EX0',
 });
 exports.userRouter = (0, trpc_1.router)({
-    getBloodDonors: trpc_1.privateProcedure
+    getBloodDonors: trpc_1.publicProcedure
         .input(zod_1.z.object({
         limit: zod_1.z.number().min(1).max(100).default(10),
         cursor: zod_1.z.number().optional(),
@@ -252,9 +252,9 @@ exports.userRouter = (0, trpc_1.router)({
                 members: [],
             });
         }
-        // Assign house ID to user (convert ObjectId to string)
-        data.houseName = house._id.toString();
-        data.buildingNo = house._id.toString();
+        // // Assign house ID to user (convert ObjectId to string)
+        // data.houseName = (house._id as mongoose.Types.ObjectId).toString();
+        // data.buildingNo = (house._id as mongoose.Types.ObjectId).toString();
         // Hash the password
         const hashPassword = await bcryptjs_1.default.hash(password, 10);
         // Create a new user
@@ -262,6 +262,7 @@ exports.userRouter = (0, trpc_1.router)({
             phone,
             name,
             password: hashPassword,
+            onboarding: true,
             ...otherDetails,
         });
         await newUser.save();

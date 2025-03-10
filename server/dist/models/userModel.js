@@ -87,6 +87,16 @@ const userSchema = new mongoose_1.default.Schema({
     baseFee: { type: Number, required: false },
     pushToken: { type: String, default: null },
     image: String,
+    otp: {
+        type: Number,
+        default: null,
+        select: false
+    },
+    otpExpires: {
+        type: Date,
+        default: null,
+        select: false
+    },
     isSAdmin: { type: Boolean, default: false, required: false },
     createdBy: { type: mongoose_1.default.Types.ObjectId },
     access: {

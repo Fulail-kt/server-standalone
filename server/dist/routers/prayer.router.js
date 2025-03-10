@@ -14,10 +14,15 @@ exports.adhanRouter = (0, trpc_1.router)({
     createAdhan: trpc_1.privateProcedure
         .input(zod_1.z.object({
         fajr: adhanTimeSchema,
+        fajrIqamah: adhanTimeSchema,
         dhuhr: adhanTimeSchema,
+        dhuhrIqamah: adhanTimeSchema,
         asr: adhanTimeSchema,
+        asrIqamah: adhanTimeSchema,
         maghrib: adhanTimeSchema,
+        maghribIqamah: adhanTimeSchema,
         isha: adhanTimeSchema,
+        ishaIqamah: adhanTimeSchema,
     }))
         .mutation(async ({ input }) => {
         //   if (ctx.user.role !== 'admin') {
@@ -40,10 +45,15 @@ exports.adhanRouter = (0, trpc_1.router)({
     updateAdhan: trpc_1.privateProcedure
         .input(zod_1.z.object({
         fajr: adhanTimeSchema.optional(),
+        fajrIqamah: adhanTimeSchema.optional(),
         dhuhr: adhanTimeSchema.optional(),
+        dhuhrIqamah: adhanTimeSchema.optional(),
         asr: adhanTimeSchema.optional(),
+        asrIqamah: adhanTimeSchema.optional(),
         maghrib: adhanTimeSchema.optional(),
+        maghribIqamah: adhanTimeSchema.optional(),
         isha: adhanTimeSchema.optional(),
+        ishaIqamah: adhanTimeSchema.optional(),
     }))
         .mutation(async ({ input }) => {
         //   if (ctx.user.role !== 'admin') {
@@ -61,10 +71,15 @@ exports.adhanRouter = (0, trpc_1.router)({
         }
         const updatedData = {
             fajr: input.fajr || adhan.fajr,
+            fajrIqamah: input.fajrIqamah || adhan.fajrIqamah,
             dhuhr: input.dhuhr || adhan.dhuhr,
+            dhuhrIqamah: input.dhuhrIqamah || adhan.dhuhrIqamah,
             asr: input.asr || adhan.asr,
+            asrIqamah: input.asrIqamah || adhan.asrIqamah,
             maghrib: input.maghrib || adhan.maghrib,
+            maghribIqamah: input.maghribIqamah || adhan.maghribIqamah,
             isha: input.isha || adhan.isha,
+            ishaIqamah: input.ishaIqamah || adhan.ishaIqamah,
         };
         const updatedAdhan = await prayerModel_1.default.findOneAndUpdate({}, updatedData, { new: true });
         return { updatedAdhan, message: 'Adhan times updated successfully', success: true };

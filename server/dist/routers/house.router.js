@@ -188,7 +188,7 @@ exports.houseRouter = (0, trpc_1.router)({
         }
         return house;
     }),
-    houseGetAll: trpc_1.privateProcedure.query(async () => {
+    houseGetAll: trpc_1.publicProcedure.query(async () => {
         const houses = await houseModel_1.default.find()
             .populate('members', 'name email phone age bloodGroup maritalStatus employmentStatus address buildingNo isBloodDonor fatherName motherName spouseName')
             .lean();
@@ -200,57 +200,6 @@ exports.houseRouter = (0, trpc_1.router)({
             members: house.members,
         }));
     }),
-    // getAnnualFees: privateProcedure
-    // .input(
-    //   z.object({
-    //     limit: z.number().min(1).max(100).default(10),
-    //     cursor: z.number().optional(),
-    //     year: z.number(),
-    //     filter: z.enum(['all', 'paid', 'unpaid']).default('all'),
-    //     search: z.string().optional(),
-    //   })
-    // )
-    // .query(async ({ input }) => {
-    //   const { limit, cursor, year, filter, search } = input;
-    //   const skip = cursor ? (cursor - 1) * limit : 0;
-    //   // Fetch all houses
-    //   const houseQuery: FilterQuery<HouseDoc> = {};
-    //   if (search) {
-    //     houseQuery.houseName = { $regex: search, $options: 'i' };
-    //   }
-    //   const allHouses = await houseModel.find(houseQuery).lean() as HouseDoc[];
-    //   // Fetch annual fees for the year
-    //   const feeQuery: { year: number } = { year };
-    //   const annualFees = await AnnualFeeModel.find(feeQuery).populate('houseId', 'houseName totalMembers').lean() as unknown as AnnualFeeDoc[];
-    //   // Combine houses with their fee status
-    //   const feeMap = new Map(annualFees.map((fee: AnnualFeeDoc) => [fee.houseId._id.toString(), fee]));
-    //   const combinedData = allHouses.map((house: HouseDoc) => {
-    //     const fee = feeMap.get(house._id.toString());
-    //     const defaultBaseFee = 100; // Default baseFee if not in AnnualFee
-    //     const annualAmount = fee ? fee.annualAmount : defaultBaseFee * house.totalMembers;
-    //     return {
-    //       id: house._id.toString(),
-    //       houseName: house.houseName,
-    //       totalMembers: house.totalMembers,
-    //       feeStatus: fee ? fee.feeStatus : 'unpaid', // No fee entry = unpaid
-    //       annualAmount,
-    //       year,
-    //     } as CombinedFeeData;
-    //   });
-    //   // Apply filter and search
-    //   const filteredData = combinedData.filter((data: CombinedFeeData) => {
-    //     if (filter === 'paid' && data.feeStatus !== 'paid') return false;
-    //     if (filter === 'unpaid' && data.feeStatus === 'paid') return false;
-    //     if (search && !data.houseName.toLowerCase().includes(search.toLowerCase())) return false;
-    //     return true;
-    //   });
-    //   const hasMore = filteredData.length > limit;
-    //   const items = hasMore ? filteredData.slice(skip, skip + limit) : filteredData.slice(skip);
-    //   return {
-    //     houses: items,
-    //     nextPage: hasMore ? (cursor ? cursor + 1 : 2) : undefined,
-    //   };
-    // }),
     getAnnualFees: trpc_1.privateProcedure
         .input(zod_1.z.object({
         limit: zod_1.z.number().min(1).max(100).default(10),
